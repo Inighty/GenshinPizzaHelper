@@ -19,7 +19,7 @@ jobs:
       - name: Package ipa
         run: |
           mkdir Payload
-          cp -r build/GenshinPizzaHelper.xcarchive/Products/Applications/&#x62ab;&#x8428;&#x5c0f;&#x52a9;&#x624b;.app Payload
+          cp -r build/GenshinPizzaHelper.xcarchive/Products/Applications/披萨小助手.app Payload
           zip -r GenshinPizzaHelper-iOS_nightly-${{ steps.commitinfo.outputs.sha_short }}.ipa Payload
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
