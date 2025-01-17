@@ -4,7 +4,7 @@ on: [ push, workflow_dispatch ]
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
       - uses: actions/checkout@v4
         with:
@@ -13,12 +13,14 @@ jobs:
       - name: Setup Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '16.2.0'
+          xcode-version: '15.1'
           
       - name: Get commit SHA
         id: commitinfo
         run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
      
+      - name: Show Build Destinations
+        run: xcodebuild -scheme "GenshinPizzaHelper" -showdestinations
           
       - name: Install Swift Dependencies
         run: |
@@ -34,7 +36,7 @@ jobs:
             -scheme "$SCHEME_NAME" \
             -configuration Release \
             -sdk iphoneos \
-            -destination 'generic/platform=iOS' \
+            -destination "generic/platform=iOS,name=Any iOS Device" \
             -archivePath build/GenshinPizzaHelper.xcarchive \
             IPHONEOS_DEPLOYMENT_TARGET=16.0 \
             DEVELOPMENT_TEAM="" \
@@ -68,6 +70,8 @@ jobs:
               <string>export</string>
               <key>uploadSymbols</key>
               <true/>
+              <key>iCloudContainerEnvironment</key>
+              <string>Production</string>
           </dict>
           </plist>
           EOF
