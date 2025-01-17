@@ -2,9 +2,10 @@ name: iOS test
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main", "dev" ]
+    branches: [ "master", "dev" ]
+  workflow_dispatch:
   
 
 jobs:
